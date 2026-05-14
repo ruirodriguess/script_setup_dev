@@ -2,11 +2,6 @@
 # Development environment - automatic setup
 
 $apps = @(
-    "Microsoft.VisualStudio.Community",
-    "Microsoft.VisualStudioCode",
-    "Notepad++.Notepad++",
-    "Git.Git",
-    "Postman.Postman",
     "SlackTechnologies.Slack",
     "Microsoft.Teams"
 )
