@@ -2,10 +2,24 @@
 # Development environment - automatic setup
 
 $apps = @(
+    "Microsoft.VisualStudio.Community",
+    "Microsoft.VisualStudioCode",
+    "Notepad++.Notepad++",
+    "Git.Git",
+    "Postman.Postman",
+    "SlackTechnologies.Slack",
     "Microsoft.Teams"
 )
 
-foreach ($app in $apps) {
+# Let the user choose which apps to process
+$selected = $apps | Out-GridView -Title "Select the apps to install" -PassThru
+
+if (-not $selected) {
+    Write-Host "No apps selected. Exiting..." -ForegroundColor Red
+    exit
+}
+
+foreach ($app in $selected) {
     Write-Host "`nChecking $app..." -ForegroundColor Cyan
     
     $installed = winget list --id $app 2>&1
