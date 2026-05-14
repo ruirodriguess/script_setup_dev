@@ -11,15 +11,17 @@ $apps = @(
     "Microsoft.Teams"
 )
 
-# Step 1: Update everything that is already installed
-Write-Host "Updating existing programs..." -ForegroundColor Yellow
-winget upgrade --all --silent --accept-package-agreements --accept-source-agreements
-
-# Step 2: Install what doesn't yet exist
-Write-Host "`nA verifying/installing missing programs..." -ForegroundColor Yellow
 foreach ($app in $apps) {
-    Write-Host "`n  -> $app" -ForegroundColor Cyan
-    winget install --id $app --latest --silent --accept-package-agreements --accept-source-agreements
+    Write-Host "`nChecking $app..." -ForegroundColor Cyan
+    
+    $installed = winget list --id $app 2>&1
+    
+    if ($installed -match $app) {
+        Write-Host "  Already installed. Skipping..." -ForegroundColor Gray
+    } else {
+        Write-Host "  Not found. Installing..." -ForegroundColor Yellow
+        winget install --id $app --latest --silent --accept-package-agreements --accept-source-agreements
+    }
 }
 
-Write-Host "`nSetup finished!" -ForegroundColor Green
+Write-Host "`nSetup complete!" -ForegroundColor Green
