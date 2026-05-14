@@ -16,11 +16,11 @@ foreach ($app in $apps) {
     
     $installed = winget list --id $app 2>&1
     
-    if ($installed -match $app) {
+    if ($installed -match [regex]::Escape($app)) {
         Write-Host "  Already installed. Skipping..." -ForegroundColor Gray
     } else {
         Write-Host "  Not found. Installing..." -ForegroundColor Yellow
-        winget install --id $app --latest --silent --accept-package-agreements --accept-source-agreements
+        winget install --id $app --silent --accept-package-agreements --accept-source-agreements
     }
 }
 
