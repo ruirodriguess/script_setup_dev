@@ -2,7 +2,6 @@
 # Development environment - automatic setup
 
 $apps = @(
-    "SlackTechnologies.Slack",
     "Microsoft.Teams"
 )
 
